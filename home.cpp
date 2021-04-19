@@ -32,7 +32,7 @@ Home::Home(QWidget *parent) : QWidget(parent){
         fr->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         QVBoxLayout* princ = new QVBoxLayout(fr);
         QHBoxLayout* fotoNome = new QHBoxLayout;
-            QImage* image = new QImage("C:/Users/marts/Desktop/m3.jpg");
+            QImage* image = new QImage("D:/Marta/univeristà/secondo anno/PROGETTO/grafica/m3.jpg");
             QLabel* provaim = new QLabel("");
             provaim->setPixmap(QPixmap::fromImage(*image));
             QVBoxLayout* nomegrad = new QVBoxLayout;
@@ -64,7 +64,7 @@ Home::Home(QWidget *parent) : QWidget(parent){
         QFrame* fr = new QFrame(lista3);
         QVBoxLayout* princ = new QVBoxLayout(fr);
         QHBoxLayout* fotoNome = new QHBoxLayout;
-            QImage* image = new QImage("C:/Users/marts/Desktop/birra.png");
+            QImage* image = new QImage("D:/Marta/univeristà/secondo anno/PROGETTO/grafica/birra.png");
             QLabel* provaim = new QLabel("");
             provaim->setPixmap(QPixmap::fromImage(*image));
             QVBoxLayout* nomegrad = new QVBoxLayout;
@@ -98,7 +98,7 @@ Home::Home(QWidget *parent) : QWidget(parent){
         fr->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
         QVBoxLayout* princ = new QVBoxLayout(fr);
         QHBoxLayout* fotoNome = new QHBoxLayout;
-            QImage* image = new QImage("C:/Users/marts/Desktop/coca1.png");
+            QImage* image = new QImage("D:/Marta/univeristà/secondo anno/PROGETTO/grafica/coca1.png");
             QLabel* provaim = new QLabel("");
             provaim->setPixmap(QPixmap::fromImage(*image));
             QVBoxLayout* nomegrad = new QVBoxLayout;
