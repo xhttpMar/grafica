@@ -45,14 +45,14 @@ void View::v_showCocktail(){
 
 void View::v_showCarrello(){
     hideCurrent();
-    cartpg = new Carrello(this);
+    cartpg = new Carrellopage(this);
     resize(1080,920);
     move(QPoint(400,20));
     setMinimumSize(1080,920);
     setMaximumSize(1080,920);
     cartpg->show();
-    connect(cartpg, &Carrello::toHomePage, this, &View::v_showHome);
-    connect(cartpg, &Carrello::toIngredientsPage, this, &View::v_showIngredients);
+    connect(cartpg, &Carrellopage::toHomePage, this, &View::v_showHome);
+    connect(cartpg, &Carrellopage::toIngredientsPage, this, &View::v_showIngredients);
 }
 
 void View::v_showAlcolico(){

@@ -10,21 +10,48 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    model/bevanda.cpp \
+    model/carrello.cpp \
+    model/catalogo.cpp \
+    model/ciao.cpp \
+    model/cibo.cpp \
+    model/cocktail.cpp \
+    model/deepptr.cpp \
+    model/ingrediente.cpp \
+    model/prodotto.cpp \
     view.cpp \
     view/alcolicopage.cpp \
     view/analcolicopage.cpp \
-    view/carrello.cpp \
-    view/ciao.cpp \
+    view/carrellopage.cpp \
     view/cocktailpage.cpp \
     view/header.cpp \
     view/home.cpp \
     view/ingredientpage.cpp
 
 HEADERS += \
+    ../PROGETTO/bevanda.h \
+    ../PROGETTO/carrello.h \
+    ../PROGETTO/catalogo.h \
+    ../PROGETTO/cibo.h \
+    ../PROGETTO/cocktail.h \
+    ../PROGETTO/deepptr.h \
+    ../PROGETTO/ingrediente.h \
+    ../PROGETTO/prodotto.h \
+    ../PROGETTO/vettore.h \
+    model/bevanda.h \
+    model/carrello.h \
+    model/catalogo.h \
+    model/ciao.h \
+    model/cibo.h \
+    model/cocktail.h \
+    model/deepptr.h \
+    model/ingrediente.h \
+    model/prodotto.h \
+    model/vettore.h \
     view.h \
     view/alcolicopage.h \
     view/analcolicopage.h \
-    view/carrello.h \
+    view/carrellopage.h \
     view/cocktailpage.h \
     view/header.h \
     view/home.h \

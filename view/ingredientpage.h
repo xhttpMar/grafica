@@ -1,7 +1,7 @@
 #ifndef INGREDIENTPAGE_H
 #define INGREDIENTPAGE_H
 
-#include "header.h"
+#include "view/header.h"
 
 #include <QWidget>
 #include <QPushButton>

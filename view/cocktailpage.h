@@ -1,7 +1,7 @@
 #ifndef COCKTAILPAGE_H
 #define COCKTAILPAGE_H
 
-#include "header.h"
+#include "view/header.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>

@@ -1,9 +1,9 @@
-#include "home.h"
+#include "view/home.h"
 #include "view.h"
-#include "header.h"
-#include "carrello.h"
-#include "alcolicopage.h"
-#include "analcolicopage.h"
+#include "view/header.h"
+#include "view/carrellopage.h"
+#include "view/alcolicopage.h"
+#include "view/analcolicopage.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

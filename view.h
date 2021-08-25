@@ -1,19 +1,19 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "home.h"
-#include "carrello.h"
-#include "alcolicopage.h"
-#include "analcolicopage.h"
-#include "ingredientpage.h"
-#include "cocktailpage.h"
+#include "view/home.h"
+#include "view/carrellopage.h"
+#include "view/alcolicopage.h"
+#include "view/analcolicopage.h"
+#include "view/ingredientpage.h"
+#include "view/cocktailpage.h"
 #include <QWidget>
 
 class View : public QWidget{
    Q_OBJECT
 private:
     Home* homepg = nullptr;
-    Carrello* cartpg = nullptr;
+    Carrellopage* cartpg = nullptr;
     AlcolicoPage* alcolpg = nullptr;
     AnalcolicoPage* analcolpg = nullptr;
     IngredientPage* listpg = nullptr;

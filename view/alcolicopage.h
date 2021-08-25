@@ -1,7 +1,7 @@
 #ifndef ALCOLICOPAGE_H
 #define ALCOLICOPAGE_H
 
-#include "header.h"
+#include "view/header.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>

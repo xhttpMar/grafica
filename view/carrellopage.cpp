@@ -1,21 +1,21 @@
-#include "carrello.h"
+#include "carrellopage.h"
 
-Carrello::Carrello(QWidget *parent) : QWidget(parent){
+Carrellopage::Carrellopage(QWidget *parent) : QWidget(parent){
     container = new QVBoxLayout(this);
     addCart();
-    connect(back, &QPushButton::clicked, this, &Carrello::showHomePage);
-    connect(switchToList, &QPushButton::clicked, this, &Carrello::showIngredientsPage);
+    connect(back, &QPushButton::clicked, this, &Carrellopage::showHomePage);
+    connect(switchToList, &QPushButton::clicked, this, &Carrellopage::showIngredientsPage);
 }
 
-void Carrello::addCart(){
+void Carrellopage::addCart(){
     this->setMinimumSize(1080,920);
     QLabel* title = new QLabel("Carrello");
     title->setFont(QFont("Verdana", 20));
 
     back = new QPushButton();
     switchToList = new QPushButton();
-    QPixmap turnBackImg = QPixmap("C:/Users/marts/Desktop/home.png");
-    QPixmap turnSwitchImg = QPixmap("C:/Users/marts/Desktop/to-do-list.png");
+    QPixmap turnBackImg = QPixmap(":/icons/home.png");
+    QPixmap turnSwitchImg = QPixmap(":/icons/to-do-list.png");
     back->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
     back->setIcon(turnBackImg);
     back->setIconSize(QSize(50,50));
@@ -38,7 +38,7 @@ void Carrello::addCart(){
 
         //immagine cocktail
         QPushButton* plotImg = new QPushButton();
-        QPixmap cocktailImg = QPixmap("C:/Users/marts/Desktop/default.png");
+        QPixmap cocktailImg = QPixmap(":/icons/default.png");
         plotImg->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
         plotImg->setIcon(cocktailImg);
         plotImg->setIconSize(QSize(100,100));
@@ -67,10 +67,10 @@ void Carrello::addCart(){
     container->addWidget(cart);
 }
 
-void Carrello::showHomePage(){
+void Carrellopage::showHomePage(){
     emit toHomePage();
 }
 
-void Carrello::showIngredientsPage(){
+void Carrellopage::showIngredientsPage(){
     emit toIngredientsPage();
 }

@@ -1,7 +1,7 @@
 #ifndef CARRELLO_H
 #define CARRELLO_H
 
-#include "header.h"
+#include "view/header.h"
 
 #include <QWidget>
 #include <QPushButton>
@@ -25,7 +25,7 @@
 #include <QSpinBox>
 #include <QSizePolicy>
 
-class Carrello: public QWidget {
+class Carrellopage: public QWidget {
     Q_OBJECT
 private:
     QVBoxLayout* container;
@@ -33,7 +33,7 @@ private:
     QPushButton* switchToList;
     QPushButton* remove;
 public:
-    explicit Carrello(QWidget *parent = nullptr);
+    explicit Carrellopage(QWidget *parent = nullptr);
     void addCart();
 signals:
     void toHomePage();
