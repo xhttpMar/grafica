@@ -1,6 +1,7 @@
-#ifndef CARRELLO_H
-#define CARRELLO_H
+#ifndef ANALCOLICOPAGE_H
+#define ANALCOLICOPAGE_H
 
+#include "header.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -21,15 +22,26 @@
 #include <QListWidgetItem>
 #include <QString>
 #include <iostream>
-#include <QTabWidget>
 #include <QSpinBox>
 #include <QSizePolicy>
 
-
-class Carrello: public QWidget {
+class AnalcolicoPage : public QWidget {
     Q_OBJECT
+private:
+    QVBoxLayout* AnalcolList;
+    QPushButton* back;
+    QPushButton* cart;
+    QPushButton* add;
+    QSpinBox* quantity;
 public:
-    explicit Carrello(QWidget *parent = nullptr);
+    explicit AnalcolicoPage(QWidget* paret = nullptr);
+    void addItems();
+signals:
+    void toHomePage();
+    void toCarrelloPage();
+public slots:
+    void showHomePage();
+    void showCarrelloPage();
 };
 
 #endif

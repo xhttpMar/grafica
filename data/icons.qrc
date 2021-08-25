@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>beer.png</file>
+        <file>cocktail.png</file>
+        <file>shopping-cart.png</file>
+        <file>softdrinks.png</file>
+        <file>bar.png</file>
+        <file>default.png</file>
+        <file>home.png</file>
+        <file>iconcart.png</file>
+        <file>to-do-list.png</file>
+    </qresource>
+</RCC>
