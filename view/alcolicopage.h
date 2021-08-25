@@ -2,6 +2,10 @@
 #define ALCOLICOPAGE_H
 
 #include "view/header.h"
+
+#include "model/vettore.h"
+#include "model/bevanda.h"
+
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>

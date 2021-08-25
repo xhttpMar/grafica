@@ -13,7 +13,6 @@ SOURCES += \
     model/bevanda.cpp \
     model/carrello.cpp \
     model/catalogo.cpp \
-    model/ciao.cpp \
     model/cibo.cpp \
     model/cocktail.cpp \
     model/deepptr.cpp \
@@ -41,7 +40,6 @@ HEADERS += \
     model/bevanda.h \
     model/carrello.h \
     model/catalogo.h \
-    model/ciao.h \
     model/cibo.h \
     model/cocktail.h \
     model/deepptr.h \
