@@ -254,8 +254,8 @@ template <class T> //ok
 void Vettore<T>::push_back(const T& val){
     if(info){ //l'array non è vuoto
         if(size == capacity){ //l'array è pieno
-            T* aux  = new T[capacity*2]; //raddoppio capacity
-            capacity *= 2;
+            capacity = capacity == 0 ? 1 : capacity*2; //raddoppio capacity
+            T* aux  = new T[capacity];
             for(int i=0; i<size; i++){
                 aux[i]=info[i];
             }
