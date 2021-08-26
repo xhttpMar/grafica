@@ -14,7 +14,7 @@ private:
     Vettore<Ingrediente> ingredienti;
 
 public:
-    Cocktail(string Nome, u_int Quantita, Vettore<Ingrediente> ing, u_int Grad=0);
+    Cocktail(string Nome, u_int Quantita,Vettore<Ingrediente> ing, u_int Grad=0);
      Vettore<Ingrediente> calcolaIngredienti(const u_int litri) const override;
     // virtual Vettore<Bevanda> crea(Carrello c /* ? Vettore<ingredienti> */);
      Vettore<Ingrediente> getIngredienti() const override;

@@ -17,6 +17,7 @@ public:
     virtual Vettore<Ingrediente> getIngredienti() const= 0;
     virtual Prodotto* clone() const = 0;
     virtual bool operator ==(const Prodotto&)const;
+    virtual std::string getNome() const {return nome;}
 };
 
 #endif // PRODOTTO_H

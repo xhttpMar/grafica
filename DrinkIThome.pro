@@ -28,15 +28,6 @@ SOURCES += \
     view/ingredientpage.cpp
 
 HEADERS += \
-    ../PROGETTO/bevanda.h \
-    ../PROGETTO/carrello.h \
-    ../PROGETTO/catalogo.h \
-    ../PROGETTO/cibo.h \
-    ../PROGETTO/cocktail.h \
-    ../PROGETTO/deepptr.h \
-    ../PROGETTO/ingrediente.h \
-    ../PROGETTO/prodotto.h \
-    ../PROGETTO/vettore.h \
     model/bevanda.h \
     model/carrello.h \
     model/catalogo.h \

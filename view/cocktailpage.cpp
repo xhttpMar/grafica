@@ -1,6 +1,6 @@
 #include "cocktailpage.h"
 
-CocktailPage::CocktailPage(QWidget* parent): QWidget(parent){
+CocktailPage::CocktailPage(QWidget* parent,Vettore<DeepPtr<Cocktail>> vec_coc): QWidget(parent), lista(vec_coc) {
     cocktailList = new QVBoxLayout(this);
     addItems();
     connect(back, &QPushButton::clicked, this, &CocktailPage::showHomePage);
@@ -14,8 +14,8 @@ void CocktailPage::addItems(){
 
     back = new QPushButton();
     cart = new QPushButton();
-    QPixmap turnBackImg = QPixmap("C:/Users/marts/Desktop/home.png");
-    QPixmap plotCartImg = QPixmap("C:/Users/marts/Desktop/iconcart.png");
+    QPixmap turnBackImg = QPixmap(":/icons/home.png");
+    QPixmap plotCartImg = QPixmap(":/icons/iconcart.png");
     back->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
     back->setIcon(turnBackImg);
     back->setIconSize(QSize(50,50));
@@ -30,21 +30,23 @@ void CocktailPage::addItems(){
     QListWidgetItem* entry = new QListWidgetItem;
     catalogue->addItem(entry);
 
-    for(int i=0; i<20; i++){
+    for(auto it=lista.begin(); it!=lista.end(); it++){
         QWidget* w= new QWidget;
 
         QHBoxLayout* item = new QHBoxLayout(w);
 
         //immagine elemento
         QPushButton* plotImg = new QPushButton();
-        QPixmap cocktailImg = QPixmap("C:/Users/marts/Desktop/cocktail.png");
+        QPixmap cocktailImg = QPixmap(":/icons/cocktail.png");
         plotImg->setStyleSheet("background-color: rgba(255, 255, 255, 0);");
         plotImg->setIcon(cocktailImg);
         plotImg->setIconSize(QSize(100,100));
         plotImg->resize(QSize(100,100));
 
         //nome analcolico
-        QLabel* nome = new QLabel("Nome analcolico");
+        std::string aux = it->get()->getNome();
+        QString* saveNome = new QString(aux.c_str()); //converto a const char*
+        QLabel* nome = new QLabel(*saveNome);
         nome->setStyleSheet("font-size: 24px;");
 
         //quantità

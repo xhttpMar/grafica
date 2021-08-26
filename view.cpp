@@ -1,13 +1,13 @@
 #include "view.h"
 
-View::View(){
+View::View(Catalogo cat):catalogo(cat){
     homepg  = new Home(this);
     homepg->show();
     connect(homepg, &Home::toCocktailPage, this, &View::v_showCocktail);
     connect(homepg, &Home::toAlcolicoPage, this, &View::v_showAlcolico);
     connect(homepg, &Home::toAnalcolicoPage, this, &View::v_showAnalcolico);
     connect(homepg, &Home::toCarrelloPage, this, &View::v_showCarrello);
-    setWindowIcon(QIcon("C:/Users/marts/Desktop/bar.png"));
+    setWindowIcon(QIcon(":/icon/bar.png"));
 }
 
 void View::hideCurrent(){
@@ -33,7 +33,7 @@ void View::hideCurrent(){
 
 void View::v_showCocktail(){
     hideCurrent();
-    if(!cocktailpg) cocktailpg=new CocktailPage(this);
+    if(!cocktailpg) cocktailpg=new CocktailPage(this, getCatalogo().listaCocktail());
     resize(1080,920);
     move(QPoint(400,20));
     setMinimumSize(1080,920);

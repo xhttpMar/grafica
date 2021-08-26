@@ -7,6 +7,8 @@
 #include "view/analcolicopage.h"
 #include "view/ingredientpage.h"
 #include "view/cocktailpage.h"
+#include "model/catalogo.h"
+
 #include <QWidget>
 
 class View : public QWidget{
@@ -18,10 +20,11 @@ private:
     AnalcolicoPage* analcolpg = nullptr;
     IngredientPage* listpg = nullptr;
     CocktailPage* cocktailpg = nullptr;
-
+    Catalogo catalogo;
 public:
-    explicit View();
+    explicit View(Catalogo cat);
     void hideCurrent();
+    Catalogo getCatalogo() {return catalogo;}
 public slots:
     void v_showCocktail();
     void v_showCarrello();
