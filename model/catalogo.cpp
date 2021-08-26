@@ -9,7 +9,7 @@ void Catalogo::aggiungiProdotto(const Prodotto& bev){
    for(Vettore<DeepPtr<Prodotto>>::Iteratore it = prodotto.begin(); it != prodotto.end(); it++){
        if((*it).get() == &bev)return;
    }
-   prodotto.push_back(DeepPtr<Prodotto>(&bev));
+   //prodotto.push_back(DeepPtr<Prodotto>(&bev));
 }
 
 Vettore<DeepPtr<Prodotto>> Catalogo::listaProdotti()const{

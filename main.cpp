@@ -22,14 +22,14 @@ int main(int argc, char *argv[])
     Prodotto* pr4 = new Cocktail("gin",100,ingr);
     Prodotto* pr5 = new Cocktail("ciao",100,ingr);
     Catalogo* cat = new Catalogo();
-    /*cat->aggiungiProdotto(*prima);
-    catalogo.aggiungiProdotto(*seconda);
-    catalogo.aggiungiProdotto(*prodotto);
-    catalogo.aggiungiProdotto(*pr2);
-    catalogo.aggiungiProdotto(*pr2);
-    catalogo.aggiungiProdotto(*pr3);
-    catalogo.aggiungiProdotto(*pr4);
-    catalogo.aggiungiProdotto(*pr5);*/
+    cat->aggiungiProdotto(*prima);
+    cat->aggiungiProdotto(*seconda);
+    cat->aggiungiProdotto(*prodotto);
+    cat->aggiungiProdotto(*pr2);
+    cat->aggiungiProdotto(*pr2);
+    cat->aggiungiProdotto(*pr3);
+    cat->aggiungiProdotto(*pr4);
+    cat->aggiungiProdotto(*pr5);
     View* view = new View(*cat);
     view->show();
     return a.exec();
