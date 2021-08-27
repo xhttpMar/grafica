@@ -6,7 +6,7 @@ Cocktail::Cocktail(string Nome, u_int Quantita, Vettore<Ingrediente> ing,  u_int
     Bevanda(Nome,Quantita,Gradazione), ingredienti(ing)
 {
     for(auto it=ing.begin(); it!=ing.end(); it++){
-       ingredienti.push_back(*it);
+       //ingredienti.push_back(*it);
     }
 }
 
