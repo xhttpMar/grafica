@@ -1,14 +1,18 @@
 #include "carrello.h"
+#include "prodotto.h"
+#include "ingrediente.h"
 #include "cibo.h"
-Carrello::Carrello() {}
+#include "bevanda.h"
 
+Carrello::Carrello() {}
 
 Vettore<Ingrediente> Carrello::calcolaIngredienti()const{
     Vettore<Ingrediente> aux;
-    for(std::pair<DeepPtr<Prodotto>,u_int> __prodotto : prodotti){
-        if(dynamic_cast<Bevanda*>(__prodotto.first.get())){
-            Bevanda* bevanda= static_cast<Bevanda*>(__prodotto.first.get());
-            Vettore<Ingrediente> temp(bevanda->calcolaIngredienti(__prodotto.second));
+    for(auto it=prodotti.cbegin(); it!=prodotti.cend(); it++){
+    //for(std::pair<DeepPtr<Prodotto>,u_int> __prodotto : prodotti){
+        if(dynamic_cast<Bevanda*>(it->first.get())){
+            const Bevanda* bevanda= static_cast<const Bevanda*>(it->first.get());
+            Vettore<Ingrediente> temp(bevanda->calcolaIngredienti(it->second));
             aux.merge(temp);
         }
     }
@@ -16,19 +20,25 @@ Vettore<Ingrediente> Carrello::calcolaIngredienti()const{
 }
 
 
-Vettore<DeepPtr<Prodotto>> Carrello::getProdotti()const{
+/*Vettore<DeepPtr<Prodotto>> Carrello::getProdotti()const{
     Vettore<DeepPtr<Prodotto>> aux;
-    for(std::pair<DeepPtr<Prodotto>,u_int> punt : prodotti){
-        aux.push_back((punt.first));
+    for(auto it=prodotti.cbegin(); it!=prodotti.cend(); it++){
+    //for(std::pair<DeepPtr<Prodotto>,u_int> punt : prodotti){
+        aux.push_back(it->first);
     }
     return aux;
+}*/
+
+Vettore<std::pair<DeepPtr<Prodotto>,u_int>> Carrello::getProdotti()const{
+    return prodotti;
 }
 
 u_int Carrello::litriTot() const{
     u_int totale = 0;
-    for(std::pair<DeepPtr<Prodotto>,u_int> __prodotto : prodotti){
-        if(dynamic_cast<Bevanda*>(__prodotto.first.get())){
-           totale += __prodotto.second;
+    for(auto it=prodotti.cbegin(); it!=prodotti.cend(); it++){
+    //for(std::pair<DeepPtr<Prodotto>,u_int> __prodotto : prodotti){
+        if(dynamic_cast<Bevanda*>(it->first.get())){
+           totale += it->second;
         }
     }
     return totale;
@@ -38,12 +48,12 @@ u_int Carrello::litriTot() const{
 void Carrello::aggiungiProdotto(const Prodotto& bev,int Quantita){
     bool non_trovato = true;
     for(Vettore<pair<DeepPtr<Prodotto>,u_int>>::Iteratore it = prodotti.begin(); non_trovato && it!=prodotti.end(); it++ ){
-        if((*it).first.get() == &bev){
+        if(it->first.get() == &bev){
             (*it).second += Quantita;
             non_trovato=false;
         }
     }
-    if(non_trovato)prodotti.push_back(std::pair<DeepPtr<Prodotto>,u_int>(&bev,Quantita));
+    if(non_trovato)prodotti.push_back(std::pair<DeepPtr<Prodotto>,u_int>(bev.clone(),Quantita));
 }
 
 u_int Carrello::gradazioneMedia(){

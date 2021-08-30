@@ -1,6 +1,6 @@
 #include "cocktailpage.h"
 
-CocktailPage::CocktailPage(QWidget* parent,Vettore<DeepPtr<Cocktail>> vec_coc): QWidget(parent), lista(vec_coc) {
+CocktailPage::CocktailPage(QWidget* parent,const Vettore<DeepPtr<Cocktail>>& vec_coc): QWidget(parent), lista(vec_coc) {
     cocktailList = new QVBoxLayout(this);
     addItems();
     connect(back, &QPushButton::clicked, this, &CocktailPage::showHomePage);
@@ -62,6 +62,12 @@ void CocktailPage::addItems(){
 
         //addToCart button
         add = new QPushButton("Aggiungi al carrello");
+        // [=](bool c){...}
+
+        connect(add, &QPushButton::clicked, [=](){
+            emit addToCart(it->get(), quantity->value()); // segnale prende Cocktail* e int
+        } );
+
         add->setStyleSheet("font: bold; font-size: 20px;");
         add->resize(25,60);
         item->addWidget(plotImg);
@@ -75,7 +81,6 @@ void CocktailPage::addItems(){
         catalogue->setItemWidget(oggetto, w);
         item->setContentsMargins(15,15,15,15);
     }
-
     cocktailList->addWidget(header);
     cocktailList->addWidget(catalogue);
 }
@@ -86,4 +91,8 @@ void CocktailPage::showHomePage(){
 
 void CocktailPage::showCarrelloPage(){
     emit toCarrelloPage();
+}
+
+void CocktailPage::addToCart(Cocktail* cocktail, int quantita){
+    emit sendAddRequestToController(cocktail, quantita);
 }

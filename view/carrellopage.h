@@ -1,8 +1,11 @@
-#ifndef CARRELLO_H
-#define CARRELLO_H
+#ifndef CARRELLOPAGE_H
+#define CARRELLOPAGE_H
 
 #include "view/header.h"
-
+#include "model/carrello.h"
+#include "model/vettore.h"
+#include "model/prodotto.h"
+#include "model/deepptr.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -32,8 +35,9 @@ private:
     QPushButton* back;
     QPushButton* switchToList;
     QPushButton* remove;
+    Vettore<std::pair<DeepPtr<Prodotto>,u_int>> listaProdotti;
 public:
-    explicit Carrellopage(QWidget *parent = nullptr);
+    explicit Carrellopage(QWidget *parent, Vettore<std::pair<DeepPtr<Prodotto>,u_int>> cart);
     void addCart();
 signals:
     void toHomePage();

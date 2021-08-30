@@ -26,14 +26,17 @@ private:
     QSpinBox* quantity;
     Vettore<DeepPtr<Cocktail>> lista;
 public:
-    explicit CocktailPage(QWidget* parent, Vettore<DeepPtr<Cocktail>> vec_coc);
+    explicit CocktailPage(QWidget* parent,const Vettore<DeepPtr<Cocktail>>& vec_coc);
     void addItems();
 signals:
     void toHomePage();
     void toCarrelloPage();
+    void sendAddRequestToController(Cocktail* cocktail, int quantity);
 public slots:
     void showHomePage();
     void showCarrelloPage();
+    void addToCart(Cocktail* cocktail, int quantity);
+
 };
 
 #endif // COCKTAILPAGE_H

@@ -3,8 +3,9 @@
 
 #include "view/header.h"
 
-#include "model/vettore.h"
 #include "model/bevanda.h"
+#include "model/vettore.h"
+#include "model/deepptr.h"
 
 #include <QWidget>
 #include <QPushButton>
@@ -38,8 +39,10 @@ private:
     QPushButton* cart;
     QPushButton* add;
     QSpinBox* quantity;
+    Vettore<DeepPtr<Bevanda>> lista;
+
 public:
-    explicit AlcolicoPage(QWidget* parent = nullptr);
+    explicit AlcolicoPage(QWidget* parent,const Vettore<DeepPtr<Bevanda>>& vec_alcol);
     void addItems();
 signals:
     void toHomePage();

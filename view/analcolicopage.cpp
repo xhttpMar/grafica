@@ -1,5 +1,5 @@
 #include "analcolicopage.h"
-AnalcolicoPage::AnalcolicoPage(QWidget* parent): QWidget(parent){
+AnalcolicoPage::AnalcolicoPage(QWidget* parent,const Vettore<DeepPtr<Bevanda>>& vec_bev): QWidget(parent), lista(vec_bev){
     AnalcolList = new QVBoxLayout(this);
     addItems();
     connect(back, &QPushButton::clicked, this, &AnalcolicoPage::showHomePage);
@@ -29,7 +29,7 @@ void AnalcolicoPage::addItems(){
     QListWidgetItem* entry = new QListWidgetItem;
     catalogue->addItem(entry);
 
-    for(int i=0; i<20; i++){
+    for(auto it=lista.begin(); it!=lista.end(); it++){
         QWidget* w= new QWidget;
 
         QHBoxLayout* item = new QHBoxLayout(w);
@@ -43,7 +43,9 @@ void AnalcolicoPage::addItems(){
         plotImg->resize(QSize(100,100));
 
         //nome analcolico
-        QLabel* nome = new QLabel("Nome analcolico");
+        std::string aux = it->get()->getNome();
+        QString* saveNome = new QString(aux.c_str()); //converto a const char*
+        QLabel* nome = new QLabel(*saveNome);
         nome->setStyleSheet("font-size: 24px;");
 
         //quantità
@@ -59,6 +61,12 @@ void AnalcolicoPage::addItems(){
 
         //addToCart button
         add = new QPushButton("Aggiungi al carrello");
+        // [=](bool c){...}
+
+        /*connect(add, &QPushButton::clicked, [=](){
+            emit addToCart(it->get(), quantity->value()); // segnale prende Cocktail* e int
+        } );*/
+
         add->setStyleSheet("font: bold; font-size: 20px;");
         add->resize(25,60);
         item->addWidget(plotImg);

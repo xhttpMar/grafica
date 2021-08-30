@@ -16,7 +16,8 @@ public:
     Ingrediente();
     Ingrediente(string n, u_int q=1, bool l=true);
     Ingrediente(const Ingrediente& ing);
-    Ingrediente* clone()const;    ~Ingrediente();
+    Ingrediente* clone()const;
+    ~Ingrediente();
 
     /*  @brief * moltiplica la quantità dell'ingrediente
      *  @param unsigned int: moltiplicatore

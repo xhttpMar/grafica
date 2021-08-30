@@ -16,7 +16,7 @@ Vettore<Ingrediente> Cocktail::getIngredienti() const{
 
 bool Cocktail::verificaIngredienti(Vettore<Ingrediente> ingr)const{
     bool chk = false;
-    for(auto it = ingredienti.begin(); it != ingredienti.end(); it++){
+    for(auto it = ingredienti.cbegin(); it != ingredienti.cend(); it++){
         chk = false;
         for(auto iter = ingr.begin(); !chk && iter != ingr.end(); iter++){
             if( *it == *iter ) chk = true;
@@ -30,8 +30,9 @@ bool Cocktail::operator ==(const Prodotto &second)const{
 }
 Vettore<Ingrediente> Cocktail::calcolaIngredienti(const u_int litri) const{
     Vettore<Ingrediente> aux;
-    for(Ingrediente ingr : ingredienti){
-        aux.push_back(ingr*(ingr.getQuantita()*(litri/quantita)));
+    for(auto it = ingredienti.cbegin(); it != ingredienti.cend(); it++){
+    //for(Ingrediente ingr : ingredienti){
+        aux.push_back((*it)*(it->getQuantita()*(litri/quantita)));
     }
     return aux;
 }

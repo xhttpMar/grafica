@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #ifndef VETTORE_H
 #define VETTORE_H
 
@@ -11,6 +12,7 @@ template <class T>
 std::ostream& operator<<(std::ostream& os,const Vettore<T>& vec);*/
 
 class Iteratore;
+class const_Iteratore;
 
 template<class T>
 class Vettore{
@@ -18,6 +20,7 @@ class Vettore{
     //friend std::ostream& operator<< <T>(std::ostream& os,const Vettore<T>& vec);
 
     friend class Iteratore;
+    friend class const_Iteratore;
 
     private:
         T* info;
@@ -29,19 +32,13 @@ class Vettore{
             friend class Vettore<T>;
             private:
                 Vettore<T>* punt; //nell'iteratore costante andrà un const Vettore<T>*
-                int index;
-
+                u_int index;
                 // iteratore CONSTUCTOR
-                Iteratore(Vettore<T>& v, int ind=0); //in quello costante va messo const
+                Iteratore(Vettore<T>& v, u_int ind=0); //in quello costante va messo const
                 // Iteratore(T* p, u_int s, u_int c);
                 //Iteratore clone() const;
-
-
             public:
                 Iteratore(const Iteratore& it);
-                //~Iteratore(); -----> potrebbe no nservire visto che utilizziamo un puntatore
-                //                      quando cancelliamo iteratore non vogliamo cancellate anche il vettore
-                //                      quindi ci basta cancellare il puntatore e non ciò a cui punta
                 // overloading OPERATOR
                 Iteratore operator++(int);
                 Iteratore& operator++();
@@ -53,6 +50,30 @@ class Vettore{
                 Iteratore operator-(u_int ind) const;
                 bool operator!=(const Iteratore& it) const;
                 bool operator==(const Iteratore& it) const;
+        };
+
+        class const_Iteratore{
+            friend class Vettore<T>;
+            private:
+                const Vettore<T>* punt;
+                u_int index;
+                // iteratore CONSTUCTOR
+                const_Iteratore(const Vettore<T>& v, u_int ind=0);
+                // Iteratore(T* p, u_int s, u_int c);
+                //Iteratore clone() const;
+            public:
+                const_Iteratore(const const_Iteratore& it);
+                // overloading OPERATOR
+                const_Iteratore operator++(int);
+                const_Iteratore& operator++();
+                const_Iteratore operator--(int);
+                const_Iteratore& operator--();
+                const T& operator*() const;
+                const T* operator->()const;
+                const_Iteratore operator+(u_int ind) const;
+                const_Iteratore operator-(u_int ind) const;
+                bool operator!=(const const_Iteratore& it) const;
+                bool operator==(const const_Iteratore& it) const;
         };
 
         // vettore CONSTUCTOR
@@ -69,15 +90,20 @@ class Vettore{
         bool operator==(const Vettore& vec)const;
 
         // Vettore METHOD
-        //quando farai i const iterator li metti costanti :) 21:27
         Iteratore begin() ;
         Iteratore end() ;
-        //skerzetto, intanto li teniamo const 23:18
+        const_Iteratore cbegin() const;
+        const_Iteratore cend() const;
         u_int Size() const;
+
         void push_back(const T& val);
+
         void insert(Iteratore it, T val); //perche non è per rif?
+        void insert(const_Iteratore it, T val);
         //void insert(const T& val);
         void remove(Iteratore it); //rimuove l'elemento in posizione it
+        void remove(const_Iteratore it);
+
         void remove(const T& value); //rimuove elemento con valore value
         T pop_back(); //rimuove ultimo elemento
         bool empty(); //true se il vettore è vuoto
@@ -86,25 +112,19 @@ class Vettore{
 };
 
 
-//              CONSTRUCTOR ITERATORE
+/********************************************** ITERATORE ***************************************/
 template <class T>
-Vettore<T>::Iteratore::Iteratore(Vettore<T>& v , int ind){
+Vettore<T>::Iteratore::Iteratore(Vettore<T>& v , u_int ind){
     punt = &v;
     if(ind < 0) index=0;
     else if(ind>punt->Size()) index=punt->Size();
     else index=ind;
 }
 
-
 template <class T>
 Vettore<T>::Iteratore::Iteratore(const Iteratore& it):
     punt(it.punt), index(it.index) {}
 
-/*  non ciserve un costruttore solo con l'indice perchè dovremo comuqnue
-    sempre sepcificare anche il vettore al quale fa riferimento
-*/
-
-//overloading operatori iteratore
 template <class T>
 typename Vettore<T>::Iteratore Vettore<T>::Iteratore::operator++(int){
     Iteratore ret(*this);
@@ -126,7 +146,7 @@ typename Vettore<T>::Iteratore& Vettore<T>::Iteratore::operator++(){
       }
       return *this;
 }
-// operator iteratore
+
 template <class T>
 typename Vettore<T>::Iteratore Vettore<T>::Iteratore::operator--(int){
     if(index>0){
@@ -155,14 +175,10 @@ typename Vettore<T>::Iteratore& Vettore<T>::Iteratore::operator--(){
       return ret;
 }
 
-// operator iteratore
-
 template <class T>
 T& Vettore<T>::Iteratore::operator*() const{
     return (*punt)[index];
 }
-
-// operator iteratore
 
 template <class T>
 T* Vettore<T>::Iteratore::operator->() const {
@@ -179,25 +195,113 @@ typename Vettore<T>::Iteratore Vettore<T>::Iteratore::operator-(u_int ind) const
     return Iteratore(*punt, index-ind);
 }
 
-// operator iteratore
 template <class T>
 bool Vettore<T>::Iteratore::operator==(const Iteratore& it) const{
     return punt == it.punt && index == it.index;
 }
 
-// operator iteratore
 template <class T>
 bool Vettore<T>::Iteratore::operator!=(const Iteratore& it) const{
     return !(it==*this);
 }
 
 
-//      METODI VETTORE
+/********************************************** CONST ITERATORE ***************************************/
+
+template <class T>
+Vettore<T>::const_Iteratore::const_Iteratore(const Vettore<T>& v , u_int ind){
+    punt = &v;
+    if(ind < 0) index=0;
+    else if(ind>punt->Size()) index=punt->Size();
+    else index=ind;
+}
+
+template <class T>
+Vettore<T>::const_Iteratore::const_Iteratore(const const_Iteratore& it):
+    punt(it.punt), index(it.index) {}
+
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::const_Iteratore::operator++(int){
+    const_Iteratore ret(*this);
+    if(punt != nullptr) {
+        if(index < punt->Size()) {
+            index++;
+        }
+    }
+    return ret;
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore& Vettore<T>::const_Iteratore::operator++(){
+      if(punt != nullptr) {
+        if(index < punt->Size()) {
+            index++;
+        }
+
+      }
+      return *this;
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::const_Iteratore::operator--(int){
+    if(index>0){
+        index--;
+    }
+      /*if(punt != nullptr) {
+          index--;
+      }
+      else{
+          index=(*punt).Size()--;
+      }*/
+    return *this;
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore& Vettore<T>::const_Iteratore::operator--(){
+    Iteratore ret(*this);
+    if(index>0){
+        index--;
+    }
+      /*if(punt != nullptr) {
+             index--;
+      }else{
+          index=(*punt).Size()--;
+      }*/
+      return ret;
+}
+
+template <class T>
+const T& Vettore<T>::const_Iteratore::operator*() const{
+    return (*punt)[index];
+}
+
+template <class T>
+const T* Vettore<T>::const_Iteratore::operator->() const {
+    return &(*punt)[index];
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::const_Iteratore::operator+(u_int ind) const{
+    return Iteratore(*punt, index+ind);
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::const_Iteratore::operator-(u_int ind) const{
+    return Iteratore(*punt, index-ind);
+}
+
+template <class T>
+bool Vettore<T>::const_Iteratore::operator==(const const_Iteratore& it) const{
+    return punt == it.punt && index == it.index;
+}
+
+template <class T>
+bool Vettore<T>::const_Iteratore::operator!=(const const_Iteratore& it) const{
+    return !(it==*this);
+}
 
 
-// CONSTRUCTOR Vettore
-// --------------------------------> RICONTROLLARE <-------------------------------
-
+/********************************************** VETTORE ***************************************/
 template <class T> //ok
 Vettore<T>::Vettore():info(nullptr), size(0), capacity(0){}
 
@@ -235,7 +339,7 @@ Vettore<T>::Vettore(typename Vettore<T>::Iteratore first, typename  Vettore<T>::
 
 template <class T> //ok
 Vettore<T>::Vettore(const Vettore& vec): info(new T[vec.size]), size(0), capacity(vec.size){
-    for(auto it=vec.begin(); it!=vec.end(); it++){
+    for(auto it=vec.cbegin(); it!=vec.cend(); it++){
         push_back(*it);
     }
 
@@ -251,6 +355,15 @@ typename Vettore<T>::Iteratore Vettore<T>::end() {
     return Iteratore(*this, size);
 }
 
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::cbegin() const{
+    return const_Iteratore(*this, 0);
+}
+
+template <class T>
+typename Vettore<T>::const_Iteratore Vettore<T>::cend() const{
+    return const_Iteratore(*this, size);
+}
 
 template <class T> //ok
 u_int Vettore<T>::Size() const{
@@ -263,7 +376,7 @@ void Vettore<T>::push_back(const T& val){
         if(size == capacity){ //l'array è pieno
             capacity *= 2; //raddoppio capacity
             T* aux  = new T[capacity];
-            for(int i=0; i<size; i++){
+            for(u_int i=0; i<size; i++){
                 aux[i]=info[i];
             }
             delete[] info;
@@ -278,11 +391,33 @@ void Vettore<T>::push_back(const T& val){
         size = 1;
         capacity = 1;
     }
-
+    return;
 }
 
 template <class T>
 void Vettore<T>::insert(Iteratore it, T val){
+    if( end() == it ){
+        push_back(val);
+        return;
+    }
+    if(size==capacity){
+        capacity *= 2; //raddoppio capacity
+        T* aux  = new T[capacity];
+        for(int i = 0; i < size; i++){
+            aux[i]=info[i];
+        }
+        delete[] info;
+        info = aux;
+    }
+    for(int i=size; i!=it.index; i--){
+        info[i]=info[i-1];
+    }
+    info[it.index]=val;
+    size++;
+}
+
+template <class T>
+void Vettore<T>::insert(const_Iteratore it, T val){
     if( end() == it ){
         push_back(val);
         return;
@@ -330,6 +465,16 @@ void Vettore<T>::remove(const T& value){
 template <class T>
 void Vettore<T>::remove(Iteratore iter){
     if( iter.index < size ){
+        for(u_int i = iter.index; i < size-1; i++){
+            info[i]=info[i+1];
+        }
+        size--;
+     }
+}
+
+template <class T>
+void Vettore<T>::remove(const_Iteratore iter){
+    if( iter.index < size ){
         for(int i = iter.index; i < size-1; i++){
             info[i]=info[i+1];
         }
@@ -362,8 +507,8 @@ bool Vettore<T>::operator==(const Vettore& vec)const{
     if(info == vec.info) return true;
     if(size != vec.Size()) return false;
     bool control = true;
-    for( Vettore<T>::Iteratore cont = begin(); cont != end() && control; cont++ ){
-        for( Vettore<T>::Iteratore cont_vec = begin(); cont_vec != vec.end() && control; cont_vec++ ){
+    for( Vettore<T>::const_Iteratore cont = cbegin(); cont != cend() && control; cont++ ){
+        for( Vettore<T>::const_Iteratore cont_vec = cbegin(); cont_vec != vec.cend() && control; cont_vec++ ){
             if( *cont != *cont_vec ) control = false;
         }
     }

@@ -1,6 +1,6 @@
 #include "carrellopage.h"
 
-Carrellopage::Carrellopage(QWidget *parent) : QWidget(parent){
+Carrellopage::Carrellopage(QWidget *parent,Vettore<std::pair<DeepPtr<Prodotto>,u_int>> cart) : QWidget(parent), listaProdotti(cart){
     container = new QVBoxLayout(this);
     addCart();
     connect(back, &QPushButton::clicked, this, &Carrellopage::showHomePage);
@@ -31,7 +31,7 @@ void Carrellopage::addCart(){
     cart->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     QListWidgetItem* item = new QListWidgetItem;
     cart->addItem(item);
-    for(int i =0; i<15; i++){
+    for(auto it=listaProdotti.begin(); it!=listaProdotti.end(); it++){
         QWidget* w= new QWidget;
         w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         QHBoxLayout* oggettoLista = new QHBoxLayout(w);
@@ -44,8 +44,10 @@ void Carrellopage::addCart(){
         plotImg->setIconSize(QSize(100,100));
         plotImg->resize(QSize(100,100));
 
-        //nome cocktail
-        QLabel* nome = new QLabel("Nome");
+        //nome prodotto
+        std::string aux = it->first->getNome();
+        QString* saveNome = new QString(aux.c_str()); //converto a const char*
+        QLabel* nome = new QLabel(*saveNome);
         nome->setStyleSheet("font-size: 24px;");
 
         //remove button

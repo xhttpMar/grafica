@@ -2,6 +2,9 @@
 #define ANALCOLICOPAGE_H
 
 #include "view/header.h"
+#include "model/vettore.h"
+#include "model/bevanda.h"
+#include "model/deepptr.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -33,8 +36,9 @@ private:
     QPushButton* cart;
     QPushButton* add;
     QSpinBox* quantity;
+    Vettore<DeepPtr<Bevanda>> lista;
 public:
-    explicit AnalcolicoPage(QWidget* paret = nullptr);
+    explicit AnalcolicoPage(QWidget* parent,const Vettore<DeepPtr<Bevanda>>& vec_coc);
     void addItems();
 signals:
     void toHomePage();

@@ -16,8 +16,10 @@ Vettore<Ingrediente> Cibo::getIngredienti() const{
 }
 Vettore<Ingrediente> Cibo::calcolaIngredienti(u_int quantita_r)const {
     Vettore<Ingrediente> aux;
-    for(Ingrediente ing : ingredienti){
-        aux.push_back(ing *(ing.getQuantita()*(quantita_r/quantita)));
+    for(auto it=ingredienti.cbegin(); it!=ingredienti.cend(); it++){
+    //for(Ingrediente ing : ingredienti){
+        //aux.push_back(ing *(ing.getQuantita()*(quantita_r/quantita)));
+        aux.push_back((*it)*(*it).getQuantita()*(quantita_r/quantita));
     }
     return aux;
 }

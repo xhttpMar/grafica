@@ -12,7 +12,7 @@ class DeepPtr {
     private:
         T* ptr;
     public:
-        T* get();
+        T* get() const;
         DeepPtr();
         DeepPtr(const T* punt);
         DeepPtr(const DeepPtr& dptr); //costruttore di copia
@@ -24,7 +24,7 @@ class DeepPtr {
 };
 
 template <class T>
-T* DeepPtr<T>::get(){return ptr;}
+T* DeepPtr<T>::get() const {return ptr;}
 
 template <class T>
 DeepPtr<T>::DeepPtr() : ptr(nullptr) {}
@@ -51,7 +51,7 @@ typename DeepPtr<T>::DeepPtr& DeepPtr<T>::operator=(const DeepPtr& dptr){
 
 template <class T>
 DeepPtr<T>::~DeepPtr(){
-    delete[] ptr;
+    delete ptr;
 }
 
 template <class T>
